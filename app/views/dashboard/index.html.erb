@@ -1,0 +1,31 @@
+<h1>Dashboard</h1>
+<p>Welcome to your dashboard, <%= current_user.email %>!</p>
+
+<h2>Your Orders</h2>
+<ul>
+  <% @orders.each do |order| %>
+    <li>
+      Order ID: <%= order.id %> - Status: <%= order.status %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Inventory</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @inventory_items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.price) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
