@@ -1,0 +1,46 @@
+<%= form_with(model: order, local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+        <% order.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.collection_select :customer_id, @customers, :id, :name, prompt: 'Select Customer' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Order.statuses.keys.map { |s| [s.titleize, s] }, prompt: 'Select Status' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_amount %>
+    <%= form.text_field :total_amount %>
+  </div>
+
+  <h2></h2>
+  <div id="order_items">
+    <%= form.fields_for :order_items do |item_form| %>
+      <%= render 'order_item_fields', f: item_form %>
+    <% end %>
+  </div>
+  
+  <div class="actions mt-3">
+    <%= link_to_add_association 'Add Item', form, :order_items, class: "btn btn-outline-primary btn-sm" %>
+    <%= form.submit 'Save Order', class: 'btn btn-success btn-sm ml-2' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Save Order', class: 'btn btn-success' %>
+  </div>
+<% end %>
+
+

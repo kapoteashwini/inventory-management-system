@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <h5 class="modal-title"><%= inventory_item.name %> Details</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  <p>Quantity: <%= inventory_item.quantity %></p>
+  <p>Price: <%= number_to_currency(inventory_item.price) %></p>
+  <!-- Add more details as needed -->
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+</div>

@@ -1,0 +1,29 @@
+<h1></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>SKU</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @low_stock_products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td><%= product.sku %></td>
+        <td><%= product.quantity %></td>
+        <td>
+          <%= link_to 'View Details', product %>
+          <!-- Add other action links as needed -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

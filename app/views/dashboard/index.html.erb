@@ -1,31 +1,47 @@
-<h1>Dashboard</h1>
-<p>Welcome to your dashboard, <%= current_user.email %>!</p>
-
-<h2>Your Orders</h2>
-<ul>
-  <% @orders.each do |order| %>
-    <li>
-      Order ID: <%= order.id %> - Status: <%= order.status %>
-    </li>
-  <% end %>
-</ul>
-
-<h2>Inventory</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Quantity</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @inventory_items.each do |item| %>
-      <tr>
-        <td><%= item.name %></td>
-        <td><%= item.quantity %></td>
-        <td><%= number_to_currency(item.price) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <h2></h2>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Inventory Items</h5>
+          <p class="card-text"><%= @total_inventory_items %></p>
+          <%= link_to "View Inventory", inventory_items_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Orders</h5>
+          <p class="card-text"><%= @total_orders %></p>
+          <%= link_to "View Orders", orders_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Users</h5>
+          <p class="card-text">0<%= @total_users %></p>
+          <%= link_to "View Users", users_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Recent Orders</h5>
+          <ul class="list-group">
+            <% @recent_orders.each do |order| %>
+              <li class="list-group-item">Order ID: <%= order.id %> - Status: <%= order.status %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

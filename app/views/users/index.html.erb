@@ -1,0 +1,65 @@
+<h1>Dashboard</h1>
+
+<!-- Inventory Overview -->
+<h2>Inventory Overview</h2>
+<p>Total number of products/items in inventory: <%= @total_inventory_items %></p>
+<% if defined?(@total_inventory_value) %>
+  <p>Total value of inventory: <%= number_to_currency(@total_inventory_value) %></p>
+<% end %>
+
+<!-- Graphical representation -->
+<h3>Inventory Distribution</h3>
+<!-- Add charts or graphs here -->
+
+<!-- Recent Transactions -->
+<h2>Recent Orders</h2>
+<% if @recent_orders.present? %>
+  <ul>
+    <% @recent_orders.each do |order| %>
+      <li><%= order.description %> (<%= order.created_at.strftime('%d %b %Y') %>)</li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No recent orders found.</p>
+<% end %>
+
+<h2>Recent Transactions</h2>
+<% if @recent_transactions.present? %>
+  <ul>
+    <% @recent_transactions.each do |transaction| %>
+      <li><%= transaction.description %> (<%= transaction.created_at.strftime('%d %b %Y') %>)</li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No recent transactions found.</p>
+<% end %>
+
+
+<!-- Inventory Alerts -->
+<h2>Inventory Alerts</h2>
+<ul>
+  <% @inventory_alerts.each do |alert_type, items| %>
+    <li><%= alert_type.to_s.titleize %>: <%= items.count %> items</li>
+  <% end %>
+</ul>
+
+<!-- Top Performing Items -->
+<h2>Top Performing Items</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @top_performing_items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.price) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

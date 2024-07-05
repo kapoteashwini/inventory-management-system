@@ -1,0 +1,27 @@
+<%= form_with(model: [ @product, @adjustment ], local: true) do |form| %>
+  <% if @adjustment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@adjustment.errors.count, "error") %> prohibited this adjustment from being saved:</h2>
+
+      <ul>
+        <% @adjustment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adjustment_type %>
+    <%= form.select :adjustment_type, ['Increase', 'Decrease'] %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Adjust Inventory' %>
+  </div>
+<% end %>

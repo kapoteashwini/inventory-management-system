@@ -12,4 +12,53 @@
  *
  *= require_tree .
  *= require_self
+
  */
+
+/* Import Bootstrap variables */
+@import "bootstrap";
+/*@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";*/
+@import "bootstrap/dist/css/bootstrap";
+@import "rails_admin";
+
+/* Custom styling */
+body {
+  padding-top: 4.5rem; /* Adjust based on navbar height */
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+.navbar {
+  background-color: #6c757d; /* Dark gray navbar */
+}
+
+.navbar-brand {
+  color: #fff; /* White text for brand */
+}
+
+.sidebar {
+  position: fixed;
+  top: 4.5rem; /* Match the navbar height */
+  height: calc(100vh - 4.5rem);
+  overflow-y: auto;
+}
+
+.sidebar-sticky {
+  padding-top: 1rem;
+}
+
+.nav-link {
+  color: #333; /* Dark text for links */
+}
+
+/* Hover effect for nav links */
+.nav-link:hover {
+  color: #007bff; /* Blue on hover */
+}
+
+/* Active link */
+.nav-link.active {
+  font-weight: bold;
+  color: #007bff; /* Blue for active link */
+}

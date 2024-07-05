@@ -2,10 +2,12 @@
 
 one:
   order: one
-  inventory_item: one
+  product: one
   quantity: 1
+  unit_price: 9.99
 
 two:
   order: two
-  inventory_item: two
+  product: two
   quantity: 1
+  unit_price: 9.99

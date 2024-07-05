@@ -1,0 +1,2 @@
+class PackingSlipsController < ApplicationController
+end

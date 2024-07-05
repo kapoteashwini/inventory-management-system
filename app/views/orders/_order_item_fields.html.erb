@@ -1,0 +1,25 @@
+<div class="order-item-fields">
+  <div class="field">
+    <%= f.label :product_id %>
+    <%= f.collection_select :product_id, @products, :id, :name, prompt: 'Select Product', class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :quantity %>
+    <%= f.number_field :quantity, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.text_field :unit_price, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%# if f.object.new_record? %>
+    <% if false %>
+      <%= link_to_remove_association "Remove", f, class: "btn btn-outline-danger btn-sm" %>
+    <% else %>
+      <%= link_to "Remove", '#', class: "btn btn-outline-danger btn-sm", data: { association: 'remove' } %>
+    <% end %>
+  </div>
+</div>

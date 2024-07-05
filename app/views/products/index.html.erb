@@ -1,0 +1,44 @@
+<h1></h1>
+
+<div id="low-stock-notification" class="alert alert-warning" style="display: none;">
+  <strong>Low Stock Alert:</strong> Some products are running low in stock. 
+  <%= link_to 'View Low Stock Products', low_stock_products_path %>
+  <!-- or -->
+  <%#= link_to 'Manage Inventory', manage_inventory_path %>.
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>SKU</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td><%= product.sku %></td>
+        <td><%= product.quantity %></td>
+        <td>
+          <%= link_to 'View Details', product %>
+          <!-- Add other action links as needed -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @low_stock_products.any? %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById('low-stock-notification').style.display = 'block';
+    });
+  </script>
+<% end %>

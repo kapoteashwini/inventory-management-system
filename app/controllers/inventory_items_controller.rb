@@ -1,5 +1,6 @@
 class InventoryItemsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_admin!, except: [:index, :show]
   before_action :set_inventory_item, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -7,6 +8,11 @@ class InventoryItemsController < ApplicationController
   end
 
   def show
+    @inventory_item = InventoryItem.find(params[:id])
+    respond_to do |format|
+      format.html # This will render show.html.erb by default
+      format.js   # This will render show.js.erb for AJAX requests
+    end
   end
 
   def new
@@ -46,5 +52,9 @@ class InventoryItemsController < ApplicationController
 
   def inventory_item_params
     params.require(:inventory_item).permit(:name, :description, :quantity, :price)
+  end
+
+  def authorize_admin!
+    redirect_to(root_path, alert: 'You are not authorized to perform this action.') unless current_user.admin?
   end
 end

@@ -1,27 +1,15 @@
-<h1>Inventory Items</h1>
-<%= link_to 'New Inventory Item', new_inventory_item_path %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @inventory_items.each do |item| %>
-      <tr>
-        <td><%= item.name %></td>
-        <td><%= item.description %></td>
-        <td><%= item.quantity %></td>
-        <td><%= number_to_currency(item.price) %></td>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_inventory_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<h2>Inventory Items</h2>
+<div class="row">
+  <% @inventory_items.each do |item| %>
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to item.name, inventory_item_path(item), remote: true %></h5>
+          <p class="card-text">Quantity: <%= item.quantity %></p>
+          <p class="card-text">Price: <%= number_to_currency(item.price) %></p>
+          <!-- Add more details as needed -->
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -72,3 +72,14 @@ group :test do
 end
 
 gem 'devise'
+gem 'bootstrap-sass', '~> 3.4.1'
+
+gem "sassc-rails"
+# gem 'webpacker', '~> 5.x'
+gem 'cancancan'
+# gem 'rails_admin'
+gem 'pry'
+gem 'pry-rails', group: :development
+# or
+gem 'byebug', group: :development
+gem 'cocoon'

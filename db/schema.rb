@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_04_085808) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_05_140439) do
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "inventory_adjustments", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "quantity"
+    t.string "adjustment_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_inventory_adjustments_on_product_id"
+  end
+
   create_table "inventory_items", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -20,23 +37,65 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_04_085808) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "order_items", force: :cascade do |t|
+  create_table "invoices", force: :cascade do |t|
     t.integer "order_id", null: false
-    t.integer "inventory_item_id", null: false
-    t.integer "quantity"
+    t.string "invoice_number"
+    t.decimal "total_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["inventory_item_id"], name: "index_order_items_on_inventory_item_id"
+    t.index ["order_id"], name: "index_invoices_on_order_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "product_id", null: false
+    t.integer "quantity"
+    t.decimal "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.decimal "total_price"
-    t.string "status"
+    t.integer "status", default: 0
+    t.decimal "total_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "packing_slips", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.string "packing_slip_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_packing_slips_on_order_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "price"
+    t.string "sku"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name"
+    t.string "contact_person"
+    t.string "email"
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,11 +106,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_04_085808) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "order_items", "inventory_items"
+  add_foreign_key "inventory_adjustments", "products"
+  add_foreign_key "invoices", "orders"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "packing_slips", "orders"
 end
