@@ -8,9 +8,10 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find(params[:id])
   end
 
- def new
+  def new
     @order = Order.new
     @customers = Customer.all  # Assuming you have a Customer model
     @products = Product.all    # Load products here
@@ -18,15 +19,14 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-      else
-        @customers = Customer.all  # Reload customers for form re-rendering
-        @products = Product.all    # Reload products for form re-rendering
-        format.html { render :new }
-      end
+    @order.user_id = current_user.id
+    binding.pry
+    if @order.save
+      redirect_to @order, notice: 'Order was successfully created.'
+    else
+      @customers = Customer.all
+      @products = Product.all
+      render :new
     end
   end
 
@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:total_price, :status)
+    params.require(:order).permit(:customer_id, :status, :total_amount, order_items_attributes: [:product_id, :quantity, :unit_price])
   end
 
   def authorize_manager!

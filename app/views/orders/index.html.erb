@@ -1,29 +1,29 @@
 <h1></h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
+      <th>Order ID</th>
       <th>Customer</th>
       <th>Status</th>
       <th>Total Amount</th>
-      <th colspan="3"></th>
+      <th>Actions</th>
     </tr>
   </thead>
-
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.customer.name %></td>
+        <td><%= order.id %></td>
+        <td><%= order.customer.name %></td> <!-- Assuming you have a customer associated with each order -->
         <td><%= order.status %></td>
         <td><%= order.total_amount %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'View Details', order %>
+          <!-- Add other action links as needed -->
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
 
 <%= link_to 'New Order', new_order_path %>

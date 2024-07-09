@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   get '/products/low_stock', to: 'products#low_stock'
   get '/low_stock_products', to: 'products#low_stock_products', as: 'low_stock_products'
   # get '/manage_inventory', to: 'inventory#manage', as: 'manage_inventory'
-  resources :orders
+  resources :customers
 
 end
